@@ -1,0 +1,73 @@
+{
+    "auditData": {
+        "processTime": 26,
+        "timestamp": "2024-02-23 20:46:11.511",
+        "requestHost": [
+            "213.111.95.32",
+            "10.214.141.201",
+            "10.214.138.125"
+        ],
+        "environment": [
+            "awseucentral1",
+            "awseucentral1c",
+            "ip_10_214_128_106",
+            "eucentral1"
+        ],
+        "serverId": "ip-10-214-128-106.eu-central-1.compute.internal",
+        "token": "A716A6EB6F11487EA240A096D102FD00",
+        "internal": "0|06~~21e12c~1630615603~S~~~NOR~5F05A4B7D40E44A170871765642600AADE00000010000000006248118|DE|06|1|1|||||||||||R|1|1|~1~1~0|0|0||0|5a98e4401e72792a355cec7119303e8c||||"
+    },
+    "hotel": {
+        "code": 6619,
+        "name": "Millennium  Hotel London Knightsbridge",
+        "categoryCode": "4EST",
+        "categoryName": "4 STARS",
+        "destinationCode": "LON",
+        "destinationName": "London",
+        "zoneCode": 31,
+        "zoneName": "Knightsbridge",
+        "latitude": 51.499817,
+        "longitude": -0.160167,
+        "rooms": [
+            {
+                "code": "TWN.ST",
+                "name": "standard room twin",
+                "rates": [
+                    {
+                        "rateKey": "20240402|20240403|W|164|6619|TWN.ST|BAR BB FLEX 14|BB||1~1~0||N@06~~21e12c~1630615603~S~~~NOR~5F05A4B7D40E44A170871765642600AADE00000010000000006248118",
+                        "rateClass": "NOR",
+                        "rateType": "BOOKABLE",
+                        "net": 280.72,
+                        "sellingRate": 300.30,
+                        "allotment": 6,
+                        "paymentType": "AT_WEB",
+                        "packaging": false,
+                        "boardCode": "BB",
+                        "boardName": "BED AND BREAKFAST",
+                        "cancellationPolicies": [
+                            {
+                                "amount": 280.72,
+                                "from": "2024-04-01T14:00:00+01:00"
+                            }
+                        ],
+                        "rooms": 1,
+                        "adults": 1,
+                        "children": 0,
+                        "rateComments": "Children policy: up to 11 Year old do not pay sharing the same bed with parents – Children of any age will pay adult price if extra bed is required .  Check-in hour 15:00-00:00.Car park NO 48.00 GBP Per unit/night.Charges for late arrival.Early departure.Minimum check-in age 18.Online check-in.Online Check-out."
+                    }
+                ]
+            }
+        ],
+        "minRate": null,
+        "maxRate": null,
+        "currency": "EUR",
+        "checkIn": "2024-04-02",
+        "checkOut": "2024-04-03",
+        "totalNet": 280.72,
+        "paymentDataRequired": false,
+        "modificationPolicies": {
+            "cancellation": true,
+            "modification": true
+        }
+    }
+}

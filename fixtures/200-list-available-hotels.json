@@ -1,0 +1,529 @@
+{
+    "auditData": {
+        "processTime": 32,
+        "timestamp": "2024-02-23 20:25:32.449",
+        "requestHost": [
+            "213.111.95.32",
+            "10.214.141.201",
+            "10.214.130.233"
+        ],
+        "environment": [
+            "awseucentral1",
+            "awseucentral1c",
+            "ip_10_214_128_106",
+            "eucentral1"
+        ],
+        "serverId": "ip-10-214-128-106.eu-central-1.compute.internal",
+        "token": "D56FC6E23068447792FBB3CCBA139493",
+        "internal": "0|551F410FBE534B3170871993241700|DE|06|1|19||||||||||||64||1~1~1~0|0|0||0|5a98e4401e72792a355cec7119303e8c||||"
+    },
+    "hotels": {
+        "checkIn": "2024-04-02",
+        "checkOut": "2024-04-03",
+        "total": 1,
+        "hotels": [
+            {
+                "code": 6619,
+                "name": "Millennium  Hotel London Knightsbridge",
+                "categoryCode": "4EST",
+                "categoryName": "4 STARS",
+                "destinationCode": "LON",
+                "destinationName": "London",
+                "zoneCode": 31,
+                "zoneName": "Knightsbridge",
+                "latitude": 51.499817,
+                "longitude": -0.160167,
+                "rooms": [
+                    {
+                        "code": "DBL.ST",
+                        "name": "standard room",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.ST|BAR AP 7 DAY 14|RO||1~1~0||N@06~~216e3~293905027~S~~~NRF~551F410FBE534B3170871993241700AADE00000010000000006228d4",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 212.40,
+                                "sellingRate": 227.22,
+                                "allotment": 115,
+                                "rateCommentsId": "164|54206|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 212.40,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.ST|BAR FLEX 14|RO||1~1~0||N@06~~22efc~2052701681~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006201ec",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 236.01,
+                                "sellingRate": 252.46,
+                                "allotment": 115,
+                                "rateCommentsId": "164|52729|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 236.01,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.ST|BAR BB FLEX 14|BB||1~1~0||N@06~~21e12c~1502390251~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006248118",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 280.72,
+                                "sellingRate": 300.30,
+                                "allotment": 115,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 280.72,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "SGL.ST",
+                        "name": "standard room capacity 1",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|SGL.ST|BAR AP 7 DAY 14|RO||1~1~0||N@06~~216e3~1937658989~S~~~NRF~551F410FBE534B3170871993241700AADE00000010000000006228d4",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 212.40,
+                                "sellingRate": 227.22,
+                                "allotment": 11,
+                                "rateCommentsId": "164|54206|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 212.40,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|SGL.ST|BAR FLEX 14|RO||1~1~0||N@06~~22efc~1610413275~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006201ec",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 236.01,
+                                "sellingRate": 252.46,
+                                "allotment": 11,
+                                "rateCommentsId": "164|52729|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 236.01,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|SGL.ST|BAR BB FLEX 14|BB||1~1~0||N@06~~226114~1517099420~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006224102",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 258.36,
+                                "sellingRate": 276.38,
+                                "allotment": 11,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 258.36,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "TWN.ST",
+                        "name": "standard room twin",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.ST|BAR AP 7 DAY 14|RO||1~1~0||N@06~~216e3~204456352~S~~~NRF~551F410FBE534B3170871993241700AADE00000010000000006228d4",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 212.40,
+                                "sellingRate": 227.22,
+                                "allotment": 6,
+                                "rateCommentsId": "164|54206|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 212.40,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.ST|BAR FLEX 14|RO||1~1~0||N@06~~22efc~2114122638~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006201ec",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 236.01,
+                                "sellingRate": 252.46,
+                                "allotment": 6,
+                                "rateCommentsId": "164|52729|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "RO",
+                                "boardName": "ROOM ONLY",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 236.01,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.ST|BAR BB FLEX 14|BB||1~1~0||N@06~~21e12c~-1270518674~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006248118",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 280.72,
+                                "sellingRate": 300.30,
+                                "allotment": 6,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 280.72,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "DBL.SU",
+                        "name": "Superior Plus  Room",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.SU|BARBB AP 7DAY14|BB||1~1~0||N@06~~247115~-1419294687~S~~~NRF~551F410FBE534B3170871993241700AADE0000001000000000623d103",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 259.61,
+                                "sellingRate": 277.71,
+                                "allotment": 17,
+                                "rateCommentsId": "164|54208|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 259.61,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.SU|BAR BB FLEX 14|BB||1~1~0||N@06~~23c135~-1384498012~S~~~NOR~551F410FBE534B3170871993241700AADE0000001000000000622a121",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 289.42,
+                                "sellingRate": 309.60,
+                                "allotment": 17,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 289.42,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "TWN.SU",
+                        "name": "Superior Plus Room Twin",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.SU|BARBB AP 7DAY14|BB||1~1~0||N@06~~247115~-1480125442~S~~~NRF~551F410FBE534B3170871993241700AADE0000001000000000623d103",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 259.61,
+                                "sellingRate": 277.71,
+                                "allotment": 29,
+                                "rateCommentsId": "164|54208|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 259.61,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.SU|BAR BB FLEX 14|BB||1~1~0||N@06~~23c135~137560359~S~~~NOR~551F410FBE534B3170871993241700AADE0000001000000000622a121",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 289.42,
+                                "sellingRate": 309.60,
+                                "allotment": 29,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 289.42,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "DBL.CB",
+                        "name": "club room",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.CB|BARBB AP 7DAY14|BB||1~1~0||N@06~~231155~-407672706~S~~~NRF~551F410FBE534B3170871993241700AADE0000001000000000621713f",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 319.23,
+                                "sellingRate": 341.49,
+                                "allotment": 18,
+                                "rateCommentsId": "164|54208|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 319.23,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|DBL.CB|BAR BB FLEX 14|BB||1~1~0||N@06~~20217c~1977084302~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006219163",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 355.25,
+                                "sellingRate": 380.02,
+                                "allotment": 18,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 355.25,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "TWN.CB",
+                        "name": "club room twin",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.CB|BARBB AP 7DAY14|BB||1~1~0||N@06~~231155~-468503461~S~~~NRF~551F410FBE534B3170871993241700AADE0000001000000000621713f",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 319.23,
+                                "sellingRate": 341.49,
+                                "allotment": 14,
+                                "rateCommentsId": "164|54208|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 319.23,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|TWN.CB|BAR BB FLEX 14|BB||1~1~0||N@06~~20217c~-795824623~S~~~NOR~551F410FBE534B3170871993241700AADE00000010000000006219163",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 355.25,
+                                "sellingRate": 380.02,
+                                "allotment": 14,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 355.25,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    },
+                    {
+                        "code": "STU.ST-1",
+                        "name": "studio SUITE",
+                        "rates": [
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|STU.ST-1|BARBB AP 7DAY14|BB||1~1~0||N@06~~2191fa~-587977875~S~~~NRF~551F410FBE534B3170871993241700AADE000000100000000062191d9",
+                                "rateClass": "NRF",
+                                "rateType": "BOOKABLE",
+                                "net": 473.25,
+                                "sellingRate": 506.25,
+                                "allotment": 5,
+                                "rateCommentsId": "164|54208|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 473.25,
+                                        "from": "2024-02-22T23:59:00Z"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            },
+                            {
+                                "rateKey": "20240402|20240403|W|164|6619|STU.ST-1|BAR BB FLEX 14|BB||1~1~0||N@06~~206232~1652979918~S~~~NOR~551F410FBE534B3170871993241700AADE0000001000000000622b20d",
+                                "rateClass": "NOR",
+                                "rateType": "BOOKABLE",
+                                "net": 525.43,
+                                "sellingRate": 562.06,
+                                "allotment": 5,
+                                "rateCommentsId": "164|52852|0",
+                                "paymentType": "AT_WEB",
+                                "packaging": false,
+                                "boardCode": "BB",
+                                "boardName": "BED AND BREAKFAST",
+                                "cancellationPolicies": [
+                                    {
+                                        "amount": 525.43,
+                                        "from": "2024-04-01T14:00:00+01:00"
+                                    }
+                                ],
+                                "rooms": 1,
+                                "adults": 1,
+                                "children": 0,
+                                "offers": null
+                            }
+                        ]
+                    }
+                ],
+                "minRate": "212.40",
+                "maxRate": "525.43",
+                "currency": "EUR"
+            }
+        ]
+    }
+}
