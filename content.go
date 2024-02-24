@@ -185,6 +185,61 @@ type (
 		Audit  *AuditData `json:"auditData"`
 		Hotels []Hotel    `json:"hotels"`
 	}
+
+	ListCountriesInput struct {
+		Fields               []string `url:"fields"`
+		Codes                []string `url:"codes"`
+		Language             string   `url:"language"`
+		From                 int      `url:"from"`
+		To                   int      `url:"to"`
+		UseSecondaryLanguage bool     `url:"useSecondaryLanguage"`
+		LastUpdateTime       Datetime `url:"lastUpdateTime"`
+	}
+
+	ListCountriesResp struct {
+		Audit     *AuditData `json:"auditData"`
+		Countries []Country  `json:"countries"`
+	}
+
+	Country struct {
+		Code    string  `json:"code"`
+		IsoCode string  `json:"isoCode"`
+		States  []State `json:"states"`
+	}
+
+	ListDestinationsInput struct {
+		ListCountriesInput
+	}
+
+	ListDestinationsResponse struct {
+		Audit        *AuditData    `json:"auditData"`
+		Destinations []Destination `json:"destinations"`
+	}
+
+	Destination struct {
+		Code        string      `json:"code"`
+		CountryCode string      `json:"countryCode"`
+		Zones       []Zone      `json:"zones"`
+		GroupZones  []GroupZone `json:"groupZones"`
+	}
+
+	Zone struct {
+		Code        int     `json:"zoneCode"`
+		Name        string  `json:"name"`
+		Description Content `json:"description"`
+	}
+
+	GroupZone struct {
+		Code string  `json:"groupZoneCode"`
+		Name Content `json:"content"`
+	}
+
+	State struct {
+		Code        string `json:"code"`
+		Description string `json:"description"`
+		Name        string `json:"name"`
+		ZoneCode    int    `json:"zoneCode"`
+	}
 )
 
 type Address struct {
@@ -290,6 +345,56 @@ func (inp GetHotelDetailsInput) Encode(v url.Values) error {
 	return nil
 }
 
+func (inp *ListCountriesInput) Encode(v url.Values) error {
+	for _, field := range inp.Fields {
+		v.Add("fields", field)
+	}
+	for _, code := range inp.Codes {
+		v.Add("codes", code)
+	}
+	if inp.Language != "" {
+		v.Set("language", inp.Language)
+	}
+	if inp.From != 0 {
+		v.Set("from", strconv.Itoa(inp.From))
+	}
+	if inp.To != 0 {
+		v.Set("to", strconv.Itoa(inp.To))
+	}
+	if inp.UseSecondaryLanguage {
+		v.Set("userSecondaryLanguage", "1")
+	}
+	if !inp.LastUpdateTime.IsZero() {
+		v.Set("lastUpdateTime", inp.LastUpdateTime.String())
+	}
+	return nil
+}
+
+func (inp *ListDestinationsInput) Encode(v url.Values) error {
+	for _, field := range inp.Fields {
+		v.Add("fields", field)
+	}
+	for _, code := range inp.Codes {
+		v.Add("codes", code)
+	}
+	if inp.Language != "" {
+		v.Set("language", inp.Language)
+	}
+	if inp.From != 0 {
+		v.Set("from", strconv.Itoa(inp.From))
+	}
+	if inp.To != 0 {
+		v.Set("to", strconv.Itoa(inp.To))
+	}
+	if inp.UseSecondaryLanguage {
+		v.Set("userSecondaryLanguage", "1")
+	}
+	if !inp.LastUpdateTime.IsZero() {
+		v.Set("lastUpdateTime", inp.LastUpdateTime.String())
+	}
+	return nil
+}
+
 // Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/hotelsUsingGET
 func (api *API) ListHotels(ctx context.Context, inp *ListHotelsInput) (*ListHotelsResponse, error) {
 	if err := inp.Validate(); err != nil {
@@ -311,6 +416,30 @@ func (api *API) ListHotels(ctx context.Context, inp *ListHotelsInput) (*ListHote
 func (api *API) GetHotelDetails(ctx context.Context, codes []int, inp *GetHotelDetailsInput) (*GetHotelDetailsResponse, error) {
 	return clientx.NewRequestBuilder[GetHotelDetailsInput, GetHotelDetailsResponse](api.API).
 		Get(fmt.Sprintf("/hotel-content-api/1.0/hotels/%s/details", joinInts[int](codes)), clientx.WithRequestHeaders(api.buildHeaders())).
+		WithEncodableQueryParams(inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/countriesUsingGET
+func (api *API) ListCountries(ctx context.Context, inp *ListCountriesInput) (*ListCountriesResp, error) {
+	return clientx.NewRequestBuilder[ListCountriesInput, ListCountriesResp](api.API).
+		Get("/hotel-content-api/1.0/locations/countries", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithEncodableQueryParams(inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			f, err := io.ReadAll(resp.Body)
+			fmt.Println(string(f), err)
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/destinationsUsingGET
+func (api *API) ListDestinations(ctx context.Context, inp *ListDestinationsInput) (*ListDestinationsResponse, error) {
+	return clientx.NewRequestBuilder[ListDestinationsInput, ListDestinationsResponse](api.API).
+		Get("/hotel-content-api/1.0/locations/destinations", clientx.WithRequestHeaders(api.buildHeaders())).
 		WithEncodableQueryParams(inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
 			return resp.StatusCode > 399, decodeError(resp)

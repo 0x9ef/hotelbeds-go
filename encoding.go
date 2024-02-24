@@ -4,7 +4,6 @@
 package hotelbeds
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"time"
@@ -28,18 +27,9 @@ func (a *Amount) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type Content string
-
-func (c *Content) UnmarshalJSON(data []byte) error {
-	type model struct {
-		Content string `json:"content"`
-	}
-	var content model
-	if err := json.Unmarshal(data, &content); err != nil {
-		return fmt.Errorf("failed to decode Content: %w", err)
-	}
-	*c = Content(content.Content)
-	return nil
+type Content struct {
+	Content      string `json:"content"`
+	LanguageCode string `json:"languageCode"`
 }
 
 type Coordinate float64

@@ -1,0 +1,109 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 210,
+    "auditData": {
+        "processTime": "1",
+        "timestamp": "2024-02-24 20:04:31.693",
+        "requestHost": "10.214.3.224",
+        "serverId": "hotel-content-api-5546f9856f-k56pf",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-k56pf]",
+        "release": ""
+    },
+    "countries": [
+        {
+            "code": "AD",
+            "isoCode": "AD",
+            "description": {
+                "content": "Andorra"
+            },
+            "states": [
+                {
+                    "code": "CA",
+                    "name": "CANILLO"
+                },
+                {
+                    "code": "EN",
+                    "name": "ENCAMP"
+                },
+                {
+                    "code": "ES",
+                    "name": "ESCALDES - ENGORDANY"
+                },
+                {
+                    "code": "AN",
+                    "name": "ANDORRA"
+                },
+                {
+                    "code": "AD",
+                    "name": "ANDORRA LA VELLA"
+                },
+                {
+                    "code": "07",
+                    "name": "ANDORRA"
+                },
+                {
+                    "code": "XX",
+                    "name": "NOT ASSIGNED"
+                },
+                {
+                    "code": "OR",
+                    "name": "ORDINO"
+                },
+                {
+                    "code": "SJ",
+                    "name": "SANT JULIA DE LORIA"
+                },
+                {
+                    "code": "MS",
+                    "name": "LA MASSANA"
+                }
+            ]
+        },
+        {
+            "code": "AE",
+            "isoCode": "AE",
+            "description": {
+                "content": "United Arab Emirates"
+            },
+            "states": [
+                {
+                    "code": "DU",
+                    "name": "UNITED ARAB EMIRATES"
+                },
+                {
+                    "code": "FU",
+                    "name": "Fujairah"
+                },
+                {
+                    "code": "AZ",
+                    "name": "Abu Dhabi"
+                },
+                {
+                    "code": "AJ",
+                    "name": "Ajman"
+                },
+                {
+                    "code": "07",
+                    "name": "UNITED ARAB EMIRATES"
+                },
+                {
+                    "code": "XX",
+                    "name": "NOT ASSIGNED"
+                },
+                {
+                    "code": "UQ",
+                    "name": "Umm Al Quwain"
+                },
+                {
+                    "code": "RK",
+                    "name": "Ras Al Khaimah"
+                },
+                {
+                    "code": "SH",
+                    "name": "Sharjah"
+                }
+            ]
+        }
+    ]
+}

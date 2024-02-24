@@ -1,0 +1,51 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 6818,
+    "auditData": {
+        "processTime": "12",
+        "timestamp": "2024-02-24 20:09:57.039",
+        "requestHost": "10.214.24.62",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "destinations": [
+        {
+            "code": "01H",
+            "name": {
+                "content": "Zaire"
+            },
+            "countryCode": "AO",
+            "isoCode": "AO",
+            "zones": [
+                {
+                    "zoneCode": 2,
+                    "name": "M'Banza Congo",
+                    "description": {
+                        "content": "M'Banza Congo"
+                    }
+                }
+            ],
+            "groupZones": []
+        },
+        {
+            "code": "01N",
+            "name": {
+                "content": "Delvinës"
+            },
+            "countryCode": "AL",
+            "isoCode": "AL",
+            "zones": [
+                {
+                    "zoneCode": 3,
+                    "name": "Mesopotam",
+                    "description": {
+                        "content": "Mesopotam"
+                    }
+                }
+            ],
+            "groupZones": []
+        }
+    ]
+}

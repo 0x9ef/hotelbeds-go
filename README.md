@@ -87,8 +87,8 @@ Hotel APIs:
 Content APIs:
 - [x] Hotels List
 - [x] Hotel Details
-- [ ] Countries
-- [ ] Destinations
+- [x] Countries
+- [x] Destinations
 - [ ] Acommodations
 - [ ] Boards
 - [ ] BoardGroups
