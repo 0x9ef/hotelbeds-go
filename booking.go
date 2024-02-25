@@ -14,6 +14,11 @@ import (
 type BookingClient interface {
 	ListAvailableHotels(ctx context.Context, inp *ListAvailableHotelsInput) (*ListAvailableHotelsResponse, error)
 	ListCheckRates(ctx context.Context, inp *ListCheckRatesInput) (*ListCheckRatesResponse, error)
+	GetBooking(ctx context.Context, id string) (*GetBookingResponse, error)
+	ListBookings(ctx context.Context, inp *CancelBookingInput) (*CancelBookingResponse, error)
+	ConfirmBooking(ctx context.Context, inp *ConfirmBookingInput) (*ConfirmBookingResponse, error)
+	ChangeBooking(ctx context.Context, id string, inp *ChangeBookingInput) (*ChangeBookingResponse, error)
+	CancelBooking(ctx context.Context, id string, inp *CancelBookingInput) (*CancelBookingResponse, error)
 }
 
 type (
@@ -198,6 +203,268 @@ type (
 		Audit *AuditData      `json:"auditData"`
 		Hotel *CheckRateHotel `json:"hotel"`
 	}
+
+	// Reservations.
+	ConfirmBookingInput struct {
+		Holder  Holder       `json:"holder"`
+		Payment *PaymentData `json:"paymentData,omitempty"`
+		// Internal booking reference.
+		ClientReference string `json:"clientReference"`
+		// Identifies the agent name of the booking.
+		// If empty, by default it will be the same than the apikey performing the booking .
+		CreationUser string `json:"creationUser,omitempty"`
+		// Free text sent to the hotelier. It can be used to request or inform of special requests to hotelier like:
+		// “Non-smoking room preferred”, “Twin bed please”, “Upper floor preferred”, “Late arrival”….
+		Remark  string   `json:"remark,omitempty"`
+		Voucher *Voucher `json:"voucher,omitempty"`
+		// Margin of price difference (as percentage) accepted when a price difference occurs between
+		// Availability/CheckRate and Booking operations. Do not use more than two decimal characters when
+		// defining tolerance.
+		// Example: to input a tolerance of 5%, you should input 5.00.
+		// NOTE: Authorisation for the use of this tag is subject to prior written agreement with your sales manager
+		Tolerance Amount `json:"tolerance,omitempty"`
+		// Language code that defines the language of the response.
+		// English will be used by default if this field is not informed.
+		Language string               `json:"language,omitempty"`
+		Rooms    []ConfirmBookingRoom `json:"rooms"`
+	}
+
+	ConfirmBookingRoom struct {
+		RateKey string `json:"rateKey"`
+		Paxes   []Pax  `json:"paxes"`
+	}
+
+	Holder struct {
+		Name    string `json:"name"`
+		Surname string `json:"surname"`
+	}
+
+	PaymentData struct {
+		Card       PaymentCard     `json:"paymentCard"`
+		Contact    ContactData     `json:"contactData"`
+		Billing    *BillingAddress `json:"billingAddress"`
+		ThreeDS    *ThreeDSData    `json:"threeDsData"`
+		WebPartner int             `json:"webPartner,omitempty"`
+		Device     *Device         `json:"device"`
+	}
+
+	PaymentCard struct {
+		Type   string `json:"cardType"`
+		Number string `json:"cardNumber"`
+		Expiry string `json:"expiryDate"`
+		CVC    string `json:"cardCVC"`
+	}
+
+	ContactData struct {
+		Email       string `json:"email"`
+		PhoneNumber string `json:"phoneNumber"`
+	}
+
+	BillingAddress struct {
+		Address1    string `json:"address1"`
+		Address2    string `json:"address2"`
+		City        string `json:"city"`
+		State       string `json:"state"`
+		PostalCode  string `json:"postalCode"`
+		CountryCode string `json:"countryCode"`
+	}
+
+	ThreeDSData struct {
+		// Enum: "PROVIDED" "REQUESTED"
+		// Use PROVIDED if you have your own integration with a PSP
+		Option string `json:"option"`
+		// This field contains the 3DS version used for authentication
+		Version      string                  `json:"version"`
+		InfoProvided ThreeDSDataInfoProvided `json:"infoProvided"`
+	}
+
+	ThreeDSDataInfoProvided struct {
+		// Transaction identifier resulting from authentication processing.
+		ID string `json:"id"`
+		// Cardholder Authentication Verification Value (CAVV)
+		CAVV string `json:"cavv"`
+		// Electronic Commerce Indicator (ECI). The ECI value is part of the two data elements
+		// that indicate the transaction was processed electronically.
+		ECI string `json:"eci"`
+	}
+
+	Device struct {
+		ID        string `json:"id"`
+		IP        string `json:"ip"`
+		UserAgent string `json:"userAgent"`
+	}
+
+	Voucher struct {
+		Language string `json:"language,omitempty"`
+		Email    Email  `json:"email"`
+		// Path of the picture you want to be featured in the header of the voucher as logo.
+		// Accepted formats: PNG, JPG, GIF & BMP. Max size: 100px x 100px.
+		// The filename part of the picture path cannot exceed 35 characters length.
+		Logo string `json:"logo"`
+	}
+
+	Email struct {
+		To    string `json:"to"`
+		From  string `json:"from"`
+		Title string `json:"title"`
+		Body  string `json:"body"`
+	}
+
+	ConfirmBookingResponse struct {
+		Audit   *AuditData `json:"auditData"`
+		Booking *Booking   `json:"booking"`
+	}
+
+	Booking struct {
+		Reference             string             `json:"reference"`
+		CancellationReference string             `json:"cancellationReference"`
+		ClientReference       string             `json:"clientReference"`
+		CreationDate          Datetime           `json:"creationDate"`
+		CreationUser          string             `json:"creationUser"`
+		Status                BookingStatus      `json:"status"`
+		ModificationPolicy    ModificationPolicy `json:"modificationPolicies"`
+		AgComission           string             `json:"agComission"`
+		VATComission          string             `json:"comissionVAT"`
+		Holder                Holder             `json:"holder"`
+		Remark                string             `json:"remark"`
+		InvoiceCompany        InvoiceCompany     `json:"invoiceCompany"`
+		TotalSellingRate      Amount             `json:"totalSellingRate"`
+		TotalNet              Amount             `json:"totalNet"`
+		PendingAmount         Amount             `json:"pendingAmount"`
+		Currency              string             `json:"currency"`
+		Hotel                 BookingHotel       `json:"hotel"`
+	}
+
+	BookingHotel struct {
+		AvailableHotel
+		CheckIn            string          `json:"checkIn"`
+		CheckOut           string          `json:"checkOut"`
+		TotalSellingRate   Amount          `json:"totalSellingRate"`
+		TotalNet           Amount          `json:"totalNet"`
+		PendingAmount      Amount          `json:"pendingAmount"`
+		Currency           string          `json:"currency"`
+		Supplier           *Supplier       `json:"supplier"`
+		ClientComments     string          `json:"clientComments"`
+		CancellationAmount Amount          `json:"cancellationAmount"`
+		Upselling          []UpsellingRate `json:"upselling,omitempty"`
+		Keywords           []Keyword       `json:"keywords,omitempty"`
+		Reviews            []Review        `json:"reviews,omitempty"`
+		Rooms              []BookingRoom   `json:"rooms"`
+	}
+
+	BookingRoom struct {
+		Code              string        `json:"code"`
+		Name              string        `json:"name"`
+		Status            BookingStatus `json:"status"`
+		ID                int           `json:"id"`
+		SupplierReference string        `json:"supplierReference,omitempty"`
+		Paxes             []Pax         `json:"paxes"`
+		Rates             []Rate        `json:"rates"`
+	}
+
+	InvoiceCompany struct {
+		RegistrationNumber string `json:"registrationNumber"`
+		Code               string `json:"code"`
+		Name               string `json:"name"`
+	}
+
+	Supplier struct {
+		Name      string `json:"name"`
+		VATNumber string `json:"vatNumber"`
+	}
+
+	UpsellingRate struct {
+		Rate
+		Discount         string      `json:"discount"`
+		DiscountPercent  string      `json:"discountPCT"`
+		HotelMandatory   bool        `json:"hotelMandatory"`
+		Comission        Amount      `json:"comission"`
+		ComissionVAT     string      `json:"comissionVAT"`
+		ComissionPercent string      `json:"comissionPCT"`
+		Rateup           Amount      `json:"rateup"`
+		Brand            string      `json:"brand"`
+		Taxes            []Tax       `json:"taxes"`
+		DailyRates       []DailyRate `json:"dailyRates"`
+	}
+
+	DailyRate struct {
+		// Day number of the stay for which the breakdown is made.
+		Offset  int    `json:"offset"`
+		Net     Amount `json:"net"`
+		Selling Amount `json:"selling"`
+	}
+
+	Review struct {
+		Rate  string `json:"rate"`
+		Count int    `json:"reviewCount"`
+		Type  string `json:"type"`
+	}
+
+	ListBookingsInput struct {
+		ListInput
+		FilterType            string `json:"filterType"`
+		FilterClientReference string `json:"clientReference"`
+		FilterCreationUser    string `json:"creationUser"`
+		// Parameter to filter the results by the country code of the hotel. Can include multiple values separated by commas.
+		FilterCountires    CommaSliceString `json:"country"`
+		FilterDestinations CommaSliceString `json:"destination"`
+		FilterHotels       CommaSliceInt    `json:"hotel"`
+		// Defines the starting date of the range of bookings to be returned.
+		FilterStart Datetime `json:"start"`
+		// Defines the ending date of the range of bookings to be returned. value.
+		FilterEnd Datetime `json:"end"`
+	}
+
+	ListBookingsResponse struct {
+		Audit    *AuditData `json:"auditData"`
+		Bookings []Booking  `json:"bookings"`
+	}
+
+	GetBookingResponse struct {
+		Audit   *AuditData `json:"auditData"`
+		Booking *Booking   `json:"booking"`
+	}
+
+	ChangeBookingInput struct {
+		// Enum: "SIMULATION" "UPDATE"
+		// Defines if the operation will be a simulation or an actual modification.
+		Mode     Mode         `json:"mode"`
+		Payment  *PaymentData `json:"paymentData"`
+		Language string       `json:"language"`
+		Booking  *Booking     `json:"booking"`
+	}
+
+	ChangeBookingResponse struct {
+		Audit   *AuditData `json:"auditData"`
+		Booking *Booking   `json:"booking"`
+	}
+
+	CancelBookingInput struct {
+		// Enum: "CANCELLATION" "SIMULATION"
+		// Defines if the operation will be a simulation or an actual cancellation.
+		Mode     Mode   `url:"cancellationFlag"`
+		Language string `url:"language"`
+	}
+
+	CancelBookingResponse struct {
+		Audit   *AuditData `json:"auditData"`
+		Booking *Booking   `json:"booking"`
+	}
+)
+
+type BookingStatus string
+
+const (
+	BookingStatusConfirmed BookingStatus = "CONFIRMED"
+	BookingStatusCancelled BookingStatus = "CANCELLED"
+)
+
+type Mode string
+
+const (
+	ModeUpdate       Mode = "UPDATE"
+	ModeCancellation Mode = "CANCELLATION"
+	ModeSimulation   Mode = "SIMULATION"
 )
 
 func (inp *ListAvailableHotelsInput) Validate() error {
@@ -385,6 +652,58 @@ func (api *API) ListAvailableHotels(ctx context.Context, inp *ListAvailableHotel
 func (api *API) ListCheckRates(ctx context.Context, inp *ListCheckRatesInput) (*ListCheckRatesResponse, error) {
 	return clientx.NewRequestBuilder[ListCheckRatesInput, ListCheckRatesResponse](api.API).
 		Post("/hotel-api/1.0/checkrates", inp, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/bookingDetail
+func (api *API) GetBooking(ctx context.Context, id string) (*GetBookingResponse, error) {
+	return clientx.NewRequestBuilder[struct{}, GetBookingResponse](api.API).
+		Get("/hotel-api/1.0/bookings/"+id, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/bookingList
+func (api *API) ListBookings(ctx context.Context, inp *CancelBookingInput) (*CancelBookingResponse, error) {
+	return clientx.NewRequestBuilder[CancelBookingInput, CancelBookingResponse](api.API).
+		Delete("/hotel-api/1.0/bookings", inp, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/booking
+func (api *API) ConfirmBooking(ctx context.Context, inp *ConfirmBookingInput) (*ConfirmBookingResponse, error) {
+	return clientx.NewRequestBuilder[ConfirmBookingInput, ConfirmBookingResponse](api.API).
+		Post("/hotel-api/1.2/bookings", inp, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/bookingChange
+func (api *API) ChangeBooking(ctx context.Context, id string, inp *ChangeBookingInput) (*ChangeBookingResponse, error) {
+	return clientx.NewRequestBuilder[ChangeBookingInput, ChangeBookingResponse](api.API).
+		Put("/hotel-api/1.0/bookings/"+id, inp, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/bookingCancellation
+func (api *API) CancelBooking(ctx context.Context, id string, inp *CancelBookingInput) (*CancelBookingResponse, error) {
+	return clientx.NewRequestBuilder[CancelBookingInput, CancelBookingResponse](api.API).
+		Delete("/hotel-api/1.0/bookings/"+id, nil, clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
 			return resp.StatusCode > 399, decodeError(resp)
 		}).

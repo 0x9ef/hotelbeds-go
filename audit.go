@@ -4,6 +4,7 @@
 package hotelbeds
 
 import (
+	"bytes"
 	"fmt"
 	"strconv"
 	"strings"
@@ -57,5 +58,46 @@ func (rh *Environments) UnmarshalJSON(data []byte) error {
 	}
 	str = strings.ReplaceAll(str, " ", "")
 	*rh = strings.Split(str, ",")
+	return nil
+}
+
+type CommaSliceString []string
+
+func (s CommaSliceString) MarshalJSON() ([]byte, error) {
+	return []byte("\"" + strings.Join(s, ",") + "\""), nil
+}
+
+func (s *CommaSliceString) UnmarshalJSON(data []byte) error {
+	if len(data) == 0 {
+		return nil
+	}
+	*s = strings.Split(string(data), ",")
+	return nil
+}
+
+type CommaSliceInt []int
+
+func (s CommaSliceInt) MarshalJSON() ([]byte, error) {
+	var sb strings.Builder
+	for _, elem := range s {
+		sb.WriteString(strconv.Itoa(elem) + ",")
+	}
+	str := sb.String()[:sb.Len()-1]
+	return []byte("\"" + str + "\""), nil
+}
+
+func (s *CommaSliceInt) UnmarshalJSON(data []byte) error {
+	if len(data) == 0 {
+		return nil
+	}
+	slice := make([]int, bytes.Count(data, []byte(",")))
+	for i, elem := range strings.Split(trimUnescapeQuotes(data), ",") {
+		n, err := strconv.Atoi(elem)
+		if err != nil {
+			return err
+		}
+		slice[i] = n
+	}
+	*s = slice
 	return nil
 }

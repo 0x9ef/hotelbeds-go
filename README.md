@@ -77,11 +77,11 @@ Internal:
 Hotel APIs:
 - [x] Availability
 - [x] Check rates
-- [ ] Booking Confirmation
-- [ ] Booking List
-- [ ] Booking Detail
-- [ ] Booking Change
-- [ ] Booking Cancellation
+- [x] Booking Confirmation
+- [x] Booking List
+- [x] Booking Detail
+- [x] Booking Change
+- [x] Booking Cancellation
 - [ ] Booking Reconfirmation
 
 Content APIs:

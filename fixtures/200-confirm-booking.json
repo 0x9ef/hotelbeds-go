@@ -1,0 +1,105 @@
+{
+    "auditData": {
+        "processTime": "2708",
+        "timestamp": "2024-02-25 13:12:06.367",
+        "requestHost": "120.92.174.204, 10.193.57.105, 10.193.44.49",
+        "serverId": "ip-10-214-46-211.eu-central-1.compute.internal#A+",
+        "environment": "[awseucentral1, awseucentral1b, ip_10_214_46_211, eucentral1]",
+        "release": "",
+        "token": "3929E95E556F4A879E50C338DA158DD8",
+        "internal": "0|06~A-SIC~215438~-2052018045~N~~~NOR~8486B17D9C5C464170886669219205AWUK22300010000000005217383|UK|05|1|1|||||||AT_WEB||||R|1|2|~1~2~0|0|0||0|86cef876af8118d8091f983c52f1056a||223||"
+    },
+    "booking": {
+        "reference": "207-12306403",
+        "clientReference": "INTEGRATIONAGENCY",
+        "creationDate": "2024-02-25",
+        "status": "CONFIRMED",
+        "modificationPolicies": {
+            "cancellation": true,
+            "modification": true
+        },
+        "creationUser": "86cef876af8118d8091f983c52f1056a",
+        "holder": {
+            "name": "HOLDERFIRSTNAME",
+            "surname": "HOLDERLASTNAME"
+        }, 
+        "hotel": {
+            "checkOut": "2024-04-08",
+            "checkIn": "2024-04-06",
+            "code": 712986,
+            "name": "Castello Di Velona, Resort Thermal SPA & Winery",
+            "categoryCode": "5LUX",
+            "categoryName": "5 STARS LUXURY",
+            "destinationCode": "SAY",
+            "destinationName": "Siena",
+            "zoneCode": 37,
+            "zoneName": "MONTALCINO",
+            "latitude": "42.98302410000000000000",
+            "longitude": "11.53653860000000000000",
+            "rooms": [
+                {
+                    "status": "CONFIRMED",
+                    "id": 1,
+                    "code": "DBL.DX",
+                    "name": "Double deluxe",
+                    "paxes": [
+                        {
+                            "roomId": 1,
+                            "type": "AD",
+                            "name": "HolderFirstName",
+                            "surname": "HolderLastName"
+                        },
+                        {
+                            "roomId": 1,
+                            "type": "AD"
+                        }
+                    ],
+                    "rates": [
+                        {
+                            "rateClass": "NOR",
+                            "net": "899.23",
+                            "rateComments": "Estimated total amount of taxes & fees for this booking: 8.00 Euro   payable on arrival. Car park YES (with additional debit notes) .00 EUR Per person/night. Electric vehicle charging station. Check-in hour 16:00 - . LGTBIQ friendly. Charges for late arrival. Identification card at arrival. Rates include buffet breakfast, Welcome Drink, Complimentary SPA access, Complimentary use of gym, Press Reader, indoor and outdoor Thermal pools, Wi-fi connection, parking.\n1 Complimentary Bottle of Champagne for bookings of min. 4 nights in UNESCO View with Terrace Junior Suite and Suite.\nPets are allowed in Room and in Common Areas of the Castle (except in the Pool and SPA Areas). Every Pet will be charged 10% of the daily Room rate per night\nHalf-Board: buffet breakfast and 3 courses dinner à la carte at Settimo Senso Restaurant (beverage and food by weight not included)\nFull-Board: buffet breakfast, 3 courses lunch at “Dolce Vita” Restaurant and 3 courses dinner à la carte at “Settimo Senso” Restaurant (beverage and food by weight not included)",
+                            "paymentType": "AT_WEB",
+                            "packaging": false,
+                            "boardCode": "BB",
+                            "boardName": "BED AND BREAKFAST",
+                            "cancellationPolicies": [
+                                {
+                                    "amount": "899.23",
+                                    "from": "2024-03-26T23:59:00+01:00"
+                                }
+                            ],
+                            "rateBreakDown": {
+                                "rateDiscounts": [
+                                    {
+                                        "code": "PQ",
+                                        "name": "Opaque Package",
+                                        "amount": "-99.91"
+                                    }
+                                ]
+                            },
+                            "rooms": 1,
+                            "adults": 2,
+                            "children": 0
+                        }
+                    ]
+                }
+            ],
+            "totalNet": "899.23",
+            "currency": "GBP",
+            "supplier": {
+                "name": "HOTELBEDS PRODUCT,S.L.U.",
+                "vatNumber": "ESB38877676"
+            }
+        },
+        "remark": "Booking remarks are to be written here.",
+        "invoiceCompany": {
+            "code": "CH1",
+            "company": "HOTELBEDS SWITZERLAND AG",
+            "registrationNumber": "CHE425060629"
+        },
+        "totalNet": 899.23,
+        "pendingAmount": 899.23,
+        "currency": "GBP"
+    }
+}
