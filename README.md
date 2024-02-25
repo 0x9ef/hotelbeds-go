@@ -103,7 +103,7 @@ Content APIs:
 - [x] Issues
 - [x] Languages
 - [x] Promotions
-- [ ] Rate Comments
+- [x] Rate Comments
 - [ ] Rate Comment Details
 - [x] Rooms
 - [x] Segments

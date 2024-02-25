@@ -40,7 +40,7 @@ type (
 var _ Client = (*API)(nil)
 
 // New returns new API with provided apiKey, apiSecret, applies all options.
-func New(apiKey, apiSecret string, opts ...Option) *API {
+func New(apiKey, apiSecret string, opts ...Option) Client {
 	api := &API{
 		apiKey:    apiKey,
 		apiSecret: apiSecret,

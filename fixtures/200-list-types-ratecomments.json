@@ -1,0 +1,57 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 53864,
+    "auditData": {
+        "processTime": "279",
+        "timestamp": "2024-02-25 11:32:41.582",
+        "requestHost": "10.214.17.4",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "rateComments": [
+        {
+            "incoming": 1,
+            "hotel": 694,
+            "code": "100403",
+            "commentsByRates": [
+                {
+                    "rateCodes": [
+                        96,
+                        0,
+                        3
+                    ],
+                    "comments": [
+                        {
+                            "dateEnd": "2025-12-31",
+                            "dateStart": "2017-08-10",
+                            "description": "no refundable rate. no changes, modification are allowed."
+                        }
+                    ]
+                }
+            ] 
+        },
+        {
+            "incoming": 1,
+            "hotel": 694,
+            "code": "100404",
+            "commentsByRates": [
+                {
+                    "rateCodes": [
+                        96,
+                        3,
+                        0
+                    ],
+                    "comments": [
+                        {
+                            "dateEnd": "2025-12-31",
+                            "dateStart": "2017-08-10",
+                            "description": "no refundable rate. no changes, modification are allowed."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

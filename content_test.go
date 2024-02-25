@@ -445,6 +445,32 @@ func TestListRooms(t *testing.T) {
 	assert.Equal(t, resp.Rooms[1].Type, "APT")
 }
 
+func TestListRateComments(t *testing.T) {
+	defer gock.Off()
+
+	gock.New("https://api.test.hotelbeds.com").
+		Get("/hotel-content-api/1.0/types/ratecomments").
+		Reply(200).
+		SetHeader("X-Ratelimit-Limit: 50000", "100").
+		SetHeader("X-Ratelimit-Remaining", "100").
+		File("fixtures/200-list-types-ratecomments.json")
+
+	client := New(os.Getenv("HOTELBEDS_API_KEY"), os.Getenv("HOTELBEDS_API_SECRET"))
+	resp, err := client.ListRateComments(context.TODO(), &ListRateCommentsInput{
+		ListInput: ListInput{
+			From: 1,
+			To:   2,
+		},
+	})
+	assert.NoError(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, 2, len(resp.RateComments))
+	assert.Equal(t, resp.RateComments[0].HotelCode, 694)
+	assert.Equal(t, resp.RateComments[1].HotelCode, 694)
+	assert.Equal(t, resp.RateComments[0].Code, "100403")
+	assert.Equal(t, resp.RateComments[1].Code, "100404")
+}
+
 func TestListSegments(t *testing.T) {
 	defer gock.Off()
 

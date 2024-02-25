@@ -7,6 +7,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -19,6 +20,26 @@ import (
 type ContentClient interface {
 	ListHotels(ctx context.Context, inp *ListHotelsInput) (*ListHotelsResponse, error)
 	GetHotelDetails(ctx context.Context, codes []int, inp *GetHotelDetailsInput) (*GetHotelDetailsResponse, error)
+	ListAccommodations(ctx context.Context, inp *ListAccommodationsInput) (*ListAccommodationsResponse, error)
+	ListCountries(ctx context.Context, inp *ListCountriesInput) (*ListCountriesResp, error)
+	ListDestinations(ctx context.Context, inp *ListDestinationsInput) (*ListDestinationsResponse, error)
+	ListBoards(ctx context.Context, inp *ListBoardsInput) (*ListBoardsResponse, error)
+	ListBoardGroups(ctx context.Context, inp *ListBoardGroupsInput) (*ListBoardGroupsResponse, error)
+	ListCategories(ctx context.Context, inp *ListCategoriesInput) (*ListCategoriesResponse, error)
+	ListChains(ctx context.Context, inp *ListChainsInput) (*ListChainsResponse, error)
+	ListClassifications(ctx context.Context, inp *ListClassificationsInput) (*ListClassificationsResponse, error)
+	ListCurrencies(ctx context.Context, inp *ListCurrenciesInput) (*ListCurrenciesResponse, error)
+	ListFacilities(ctx context.Context, inp *ListFacilitiesInput) (*ListFacilitiesResponse, error)
+	ListFacilityGroups(ctx context.Context, inp *ListFacilityGroupsInput) (*ListFacilityGroupsResponse, error)
+	ListFacilityTypologies(ctx context.Context, inp *ListFacilityTypologiesInput) (*ListFacilityTypologiesResponse, error)
+	ListImageTypes(ctx context.Context, inp *ListImageTypesInput) (*ListImageTypesResponse, error)
+	ListIssues(ctx context.Context, inp *ListIssuesInput) (*ListIssuesResponse, error)
+	ListLanguages(ctx context.Context, inp *ListLanguagesInput) (*ListLanguagesResponse, error)
+	ListPromotions(ctx context.Context, inp *ListPromotionsInput) (*ListPromotionsResponse, error)
+	ListRooms(ctx context.Context, inp *ListRoomsInput) (*ListRoomsResponse, error)
+	ListRateComments(ctx context.Context, inp *ListRateCommentsInput) (*ListRateCommentsResponse, error)
+	ListSegments(ctx context.Context, inp *ListSegmentsInput) (*ListSegmentsResponse, error)
+	ListTerminals(ctx context.Context, inp *ListTerminalsInput) (*ListTerminalsResponse, error)
 }
 
 type (
@@ -191,13 +212,13 @@ type (
 	}
 
 	ListInput struct {
-		Fields               []string `url:"fields"`
-		Codes                []string `url:"codes"`
-		Language             string   `url:"language"`
-		From                 int      `url:"from"`
-		To                   int      `url:"to"`
-		UseSecondaryLanguage bool     `url:"useSecondaryLanguage"`
-		LastUpdateTime       Datetime `url:"lastUpdateTime"`
+		Fields               []string  `url:"fields,omitempty"`
+		Codes                []string  `url:"codes,omitempty"`
+		Language             string    `url:"language,omitempty"`
+		From                 int       `url:"from"`
+		To                   int       `url:"to"`
+		UseSecondaryLanguage bool      `url:"useSecondaryLanguage"`
+		LastUpdateTime       *Datetime `url:"lastUpdateTime,omitempty"`
 	}
 
 	ListCountriesInput struct {
@@ -498,6 +519,34 @@ type (
 		Rooms []Room     `json:"rooms"`
 	}
 
+	ListRateCommentsInput struct {
+		ListInput
+	}
+
+	RateComment struct {
+		// Code of the incoming office of the hotel.
+		Incoming     int               `json:"incoming"`
+		Code         string            `json:"code"`
+		HotelCode    int               `json:"hotel"`
+		RateComments []RateCommentItem `json:"rateComments"`
+	}
+
+	RateCommentItem struct {
+		Codes    []int                `json:"rateCodes"`
+		Comments []RateCommentComment `json:"comments"`
+	}
+
+	RateCommentComment struct {
+		Start       Datetime `json:"dateStart"`
+		End         Datetime `json:"dateEnd"`
+		Description string   `json:"description"`
+	}
+
+	ListRateCommentsResponse struct {
+		Audit        *AuditData    `json:"auditData"`
+		RateComments []RateComment `json:"rateComments"`
+	}
+
 	Terminal struct {
 		Code        string  `json:"code"`
 		Type        string  `json:"type"`
@@ -669,6 +718,19 @@ func (api *API) GetHotelDetails(ctx context.Context, codes []int, inp *GetHotelD
 		DoWithDecode(ctx)
 }
 
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/accommodatinsUsingGET
+func (api *API) ListAccommodations(ctx context.Context, inp *ListAccommodationsInput) (*ListAccommodationsResponse, error) {
+	return clientx.NewRequestBuilder[ListAccommodationsInput, ListAccommodationsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/accommodations", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			b, err := io.ReadAll(resp.Body)
+			fmt.Println(string(b), err)
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
 // Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/countriesUsingGET
 func (api *API) ListCountries(ctx context.Context, inp *ListCountriesInput) (*ListCountriesResp, error) {
 	return clientx.NewRequestBuilder[ListCountriesInput, ListCountriesResp](api.API).
@@ -684,16 +746,6 @@ func (api *API) ListCountries(ctx context.Context, inp *ListCountriesInput) (*Li
 func (api *API) ListDestinations(ctx context.Context, inp *ListDestinationsInput) (*ListDestinationsResponse, error) {
 	return clientx.NewRequestBuilder[ListDestinationsInput, ListDestinationsResponse](api.API).
 		Get("/hotel-content-api/1.0/locations/destinations", clientx.WithRequestHeaders(api.buildHeaders())).
-		WithQueryParams("url", *inp).
-		WithErrorDecode(func(resp *http.Response) (bool, error) {
-			return resp.StatusCode > 399, decodeError(resp)
-		}).
-		DoWithDecode(ctx)
-}
-
-func (api *API) ListAccommodations(ctx context.Context, inp *ListAccommodationsInput) (*ListAccommodationsResponse, error) {
-	return clientx.NewRequestBuilder[ListAccommodationsInput, ListAccommodationsResponse](api.API).
-		Get("/hotel-content-api/1.0/types/accommodations", clientx.WithRequestHeaders(api.buildHeaders())).
 		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
 			return resp.StatusCode > 399, decodeError(resp)
@@ -848,6 +900,17 @@ func (api *API) ListPromotions(ctx context.Context, inp *ListPromotionsInput) (*
 func (api *API) ListRooms(ctx context.Context, inp *ListRoomsInput) (*ListRoomsResponse, error) {
 	return clientx.NewRequestBuilder[ListRoomsInput, ListRoomsResponse](api.API).
 		Get("/hotel-content-api/1.0/types/rooms", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/rateCommentsUsingGET
+func (api *API) ListRateComments(ctx context.Context, inp *ListRateCommentsInput) (*ListRateCommentsResponse, error) {
+	return clientx.NewRequestBuilder[ListRateCommentsInput, ListRateCommentsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/ratecomments", clientx.WithRequestHeaders(api.buildHeaders())).
 		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
 			return resp.StatusCode > 399, decodeError(resp)
