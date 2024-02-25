@@ -1,0 +1,29 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 22,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:46:07.520",
+        "requestHost": "10.214.0.178",
+        "serverId": "hotel-content-api-5546f9856f-rn8ls",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-rn8ls]",
+        "release": ""
+    },
+    "facilityGroups": [
+        {
+            "code": 10,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Location"
+            }
+        },
+        {
+            "code": 100,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Points of interest"
+            }
+        }
+    ]
+}

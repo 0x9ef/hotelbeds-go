@@ -1,0 +1,33 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 586,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:45:43.091",
+        "requestHost": "10.214.12.173",
+        "serverId": "hotel-content-api-5546f9856f-k56pf",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-k56pf]",
+        "release": ""
+    },
+    "facilities": [
+        {
+            "code": 1,
+            "facilityGroupCode": 61,
+            "facilityTypologyCode": 20,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Single bed 80-130 width"
+            }
+        },
+        {
+            "code": 1,
+            "facilityGroupCode": 62,
+            "facilityTypologyCode": 20,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Single bed 80-130 width"
+            }
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 1290,
+    "auditData": {
+        "processTime": "1",
+        "timestamp": "2024-02-25 10:19:29.160",
+        "requestHost": "10.214.43.185",
+        "serverId": "hotel-content-api-5546f9856f-dnnqn",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-dnnqn]",
+        "release": ""
+    },
+    "terminals": [
+        {
+            "code": "AAE",
+            "type": "A",
+            "country": "DZ",
+            "name": {
+                "languageCode": "ENG",
+                "content": "Annaba, Rabah Bitat Int. Airport"
+            },
+            "description": {
+                "languageCode": "ENG",
+                "content": "Airport"
+            }
+        },
+        {
+            "code": "AAGT",
+            "type": "A",
+            "country": "ES",
+            "name": {
+                "languageCode": "ENG",
+                "content": "AGAETE"
+            },
+            "description": {
+                "languageCode": "ENG",
+                "content": "Airport"
+            }
+        }
+    ]
+}

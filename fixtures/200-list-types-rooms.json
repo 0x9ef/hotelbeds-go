@@ -1,0 +1,53 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 13633,
+    "auditData": {
+        "processTime": "39",
+        "timestamp": "2024-02-25 08:50:57.688",
+        "requestHost": "10.214.35.189",
+        "serverId": "hotel-content-api-5546f9856f-rn8ls",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-rn8ls]",
+        "release": ""
+    },
+    "rooms": [
+        {
+            "code": "APT.0E",
+            "type": "APT",
+            "characteristic": "0E",
+            "minPax": 1,
+            "maxPax": 10,
+            "maxAdults": 10,
+            "maxChildren": 6,
+            "minAdults": 1,
+            "description": "APARTMENT basement",
+            "typeDescription": {
+                "languageCode": "ENG",
+                "content": "APARTMENT"
+            },
+            "characteristicDescription": {
+                "languageCode": "ENG",
+                "content": "basement"
+            }
+        },
+        {
+            "code": "APT.1B",
+            "type": "APT",
+            "characteristic": "1B",
+            "minPax": 1,
+            "maxPax": 10,
+            "maxAdults": 10,
+            "maxChildren": 6,
+            "minAdults": 1,
+            "description": "APARTMENT ONE BED",
+            "typeDescription": {
+                "languageCode": "ENG",
+                "content": "APARTMENT"
+            },
+            "characteristicDescription": {
+                "languageCode": "ENG",
+                "content": "ONE BED"
+            }
+        }
+    ]
+}

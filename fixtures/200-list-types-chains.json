@@ -1,0 +1,29 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 3054,
+    "auditData": {
+        "processTime": "4",
+        "timestamp": "2024-02-25 08:41:54.923",
+        "requestHost": "10.214.17.4",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "chains": [
+        {
+            "code": "007",
+            "description": {
+                "languageCode": "ENG",
+                "content": "ROOM007"
+            }
+        },
+        {
+            "code": "13CO",
+            "description": {
+                "languageCode": "ENG",
+                "content": "13 COINS HOTELS"
+            }
+        }
+    ]
+}

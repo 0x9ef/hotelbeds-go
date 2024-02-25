@@ -1,0 +1,39 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 7,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 10:20:57.834",
+        "requestHost": "10.214.34.33",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "groupCategories": [
+        {
+            "code": "GRUPO1",
+            "order": 1,
+            "name": {
+                "languageCode": "ENG",
+                "content": "Includes 1-star hotels"
+            },
+            "description": {
+                "languageCode": "ENG",
+                "content": "Includes 1-star hotels"
+            }
+        },
+        {
+            "code": "GRUPO2",
+            "order": 2,
+            "name": {
+                "languageCode": "ENG",
+                "content": "Includes 2-star hotels, standard,  mini hotels, re"
+            },
+            "description": {
+                "languageCode": "ENG",
+                "content": "Includes 2-star hotels, standard,  mini hotels, residences and rural hotels."
+            }
+        }
+    ]
+}

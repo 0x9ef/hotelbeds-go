@@ -89,24 +89,24 @@ Content APIs:
 - [x] Hotel Details
 - [x] Countries
 - [x] Destinations
-- [ ] Acommodations
-- [ ] Boards
-- [ ] BoardGroups
-- [ ] Categories
-- [ ] Chains
-- [ ] Classifications
-- [ ] Currencies
-- [ ] Facilities
-- [ ] Facility Groups
-- [ ] Facility Typologies
-- [ ] Group Categories
-- [ ] Image Types
-- [ ] Hotel Issues
-- [ ] Languages
-- [ ] Promotions
+- [x] Acommodations
+- [x] Boards
+- [x] BoardGroups
+- [x] Categories
+- [x] Chains
+- [x] Classifications
+- [x] Currencies
+- [x] Facilities
+- [x] Facility Groups
+- [x] Facility Typologies
+- [x] Image Types
+- [x] Issues
+- [x] Languages
+- [x] Promotions
+- [ ] Rate Comments
 - [ ] Rate Comment Details
-- [ ] Rooms
-- [ ] Segments
+- [x] Rooms
+- [x] Segments
 
 ## License
 

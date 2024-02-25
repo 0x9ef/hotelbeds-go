@@ -1,0 +1,29 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 20,
+    "auditData": {
+        "processTime": "9",
+        "timestamp": "2024-02-25 11:19:40.286",
+        "requestHost": "10.214.16.38",
+        "serverId": "hotel-content-api-5546f9856f-k56pf",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-k56pf]",
+        "release": ""
+    },
+    "classifications": [
+        {
+            "code": "AUS",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Special discount excluded"
+            }
+        },
+        {
+            "code": "BAL",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Balearic Islands Resident"
+            }
+        }
+    ]
+}

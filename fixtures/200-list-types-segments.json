@@ -1,0 +1,29 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 15,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:50:33.014",
+        "requestHost": "10.214.8.163",
+        "serverId": "hotel-content-api-5546f9856f-rn8ls",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-rn8ls]",
+        "release": ""
+    },
+    "segments": [
+        {
+            "code": 100,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Hotels with charm"
+            }
+        },
+        {
+            "code": 102,
+            "description": {
+                "languageCode": "ENG",
+                "content": "Sustainable Hotel"
+            }
+        }
+    ]
+}

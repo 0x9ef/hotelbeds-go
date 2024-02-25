@@ -1,0 +1,41 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 136,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:47:24.035",
+        "requestHost": "10.214.47.85",
+        "serverId": "hotel-content-api-5546f9856f-dnnqn",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-dnnqn]",
+        "release": ""
+    },
+    "issues": [
+        {
+            "code": "PROHIBITED",
+            "type": "ALCOHOLPROHIB",
+            "description": {
+                "languageCode": "ENG",
+                "content": "No alcohol will be served in the hotel shops nor will it be provided by room service."
+            },
+            "name": {
+                "languageCode": "ENG",
+                "content": "Alcohol is prohibited to be served both day and night in any outlets within the hotel or in room service."
+            },
+            "alternative": true
+        },
+        {
+            "code": "ARRIVALTIME",
+            "type": "ARRIVALTIME",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Clients should notify their arrival time to the hotel."
+            },
+            "name": {
+                "languageCode": "ENG",
+                "content": "Clients should notify their arrival time to the hotel."
+            },
+            "alternative": false
+        }
+    ]
+}

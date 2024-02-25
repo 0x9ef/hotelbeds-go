@@ -1,0 +1,31 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 169,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:42:50.157",
+        "requestHost": "10.214.40.162",
+        "serverId": "hotel-content-api-5546f9856f-rn8ls",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-rn8ls]",
+        "release": ""
+    },
+    "currencies": [
+        {
+            "code": "AED",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Utd. Arab Emir. Dirham"
+            },
+            "currencyType": "LIBERATE"
+        },
+        {
+            "code": "AFA",
+            "description": {
+                "languageCode": "ENG",
+                "content": "AFGHANI"
+            },
+            "currencyType": "LIBERATE"
+        }
+    ]
+}

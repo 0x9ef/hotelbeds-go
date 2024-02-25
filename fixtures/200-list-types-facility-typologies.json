@@ -1,0 +1,51 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 24,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:46:37.627",
+        "requestHost": "10.214.34.175",
+        "serverId": "hotel-content-api-5546f9856f-k56pf",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-k56pf]",
+        "release": ""
+    },
+    "facilityTypologies": [
+        {
+            "code": 12,
+            "numberFlag": false,
+            "logicFlag": true,
+            "feeFlag": true,
+            "distanceFlag": false,
+            "ageFromFlag": false,
+            "ageToFlag": false,
+            "dateFromFlag": false,
+            "dateToFlag": false,
+            "timeFromFlag": false,
+            "timeToFlag": false,
+            "indYesOrNoFlag": false,
+            "amountFlag": false,
+            "currencyFlag": false,
+            "appTypeFlag": false,
+            "textFlag": false
+        },
+        {
+            "code": 14,
+            "numberFlag": false,
+            "logicFlag": false,
+            "feeFlag": false,
+            "distanceFlag": true,
+            "ageFromFlag": false,
+            "ageToFlag": false,
+            "dateFromFlag": false,
+            "dateToFlag": false,
+            "timeFromFlag": false,
+            "timeToFlag": false,
+            "indYesOrNoFlag": false,
+            "amountFlag": false,
+            "currencyFlag": false,
+            "appTypeFlag": false,
+            "textFlag": true
+        }
+    ]
+}

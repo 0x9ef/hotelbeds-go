@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -24,32 +23,37 @@ type ContentClient interface {
 
 type (
 	Hotel struct {
-		Code                 int                `json:"code"`
-		Name                 Content            `json:"name"`
-		CountryCode          string             `json:"countryCode"`
-		StateCode            string             `json:"stateCode"`
-		DestinationCode      string             `json:"destinationCode"`
-		ZoneCode             int                `json:"zoneCode"`
-		Coordinates          Coordinates        `json:"coordinates"`
-		CategoryCode         string             `json:"categoryCode"`
-		CategoryGroupCode    string             `json:"categoryGroupCode"`
-		ChainCode            string             `json:"chainCode"`
-		AccommodationType    *HotelAccomodation `json:"accommodationType"`
-		AccomodationTypeCode string             `json:"accomodationTypeCode,omitempty"`
-		BoardCodes           []string           `json:"boardCodes"`
-		SegmentCodes         []int              `json:"segmentCodes"`
-		Address              Address            `json:"address"`
-		PostalCode           string             `json:"postalCode"`
-		City                 Content            `json:"city"`
-		Email                string             `json:"email"`
-		License              string             `json:"license,omitempty"`
-		URL                  string             `json:"web"`
-		LastUpdate           Datetime           `json:"lastUpdate"`
-		S2C                  string             `json:"S2C"`
-		Ranking              int                `json:"ranking"`
-		Phones               []Phone            `json:"phones"`
-		Rooms                []HotelRoom        `json:"rooms"`
-		Facilities           []Facility         `json:"facilities"`
+		Code                 int                  `json:"code"`
+		Name                 Content              `json:"name"`
+		CountryCode          string               `json:"countryCode"`
+		StateCode            string               `json:"stateCode"`
+		DestinationCode      string               `json:"destinationCode"`
+		ZoneCode             int                  `json:"zoneCode"`
+		Coordinates          Coordinates          `json:"coordinates"`
+		CategoryCode         string               `json:"categoryCode"`
+		CategoryGroupCode    string               `json:"categoryGroupCode"`
+		ChainCode            string               `json:"chainCode"`
+		AccommodationType    *HotelAccomodation   `json:"accommodationType"`
+		AccomodationTypeCode string               `json:"accomodationTypeCode,omitempty"`
+		BoardCodes           []string             `json:"boardCodes"`
+		SegmentCodes         []int                `json:"segmentCodes"`
+		Address              Address              `json:"address"`
+		PostalCode           string               `json:"postalCode"`
+		City                 Content              `json:"city"`
+		Email                string               `json:"email"`
+		License              string               `json:"license,omitempty"`
+		URL                  string               `json:"web"`
+		LastUpdate           Datetime             `json:"lastUpdate"`
+		S2C                  string               `json:"S2C"`
+		Ranking              int                  `json:"ranking"`
+		Phones               []Phone              `json:"phones"`
+		Rooms                []HotelRoom          `json:"rooms"`
+		Facilities           []HotelFacility      `json:"facilities"`
+		Issues               []HotelIssue         `json:"issues"`
+		Wildcards            []HotelWildCard      `json:"wildCards"`
+		Terminals            []HotelTerminal      `json:"terminals"`
+		InterestPoints       []HotelInterestPoint `json:"interestPoints"`
+		Images               []HotelImage         `json:"images,omitempty"`
 	}
 
 	HotelAccomodation struct {
@@ -86,12 +90,12 @@ type (
 		Facilities  []HotelRoomFacility `json:"roomStayFacilities"`
 	}
 
-	Terminal struct {
+	HotelTerminal struct {
 		Code     string   `json:"terminalCode"`
 		Distance Distance `json:"distance"`
 	}
 
-	Issue struct {
+	HotelIssue struct {
 		Code          string    `json:"issueCode"`
 		Type          string    `json:"issueType"`
 		From          time.Time `json:"dateFrom"`
@@ -100,7 +104,7 @@ type (
 		IsAlternative bool      `json:"alternative"`
 	}
 
-	InterestPoint struct {
+	HotelInterestPoint struct {
 		FacilityCode      int      `json:"facilityCode"`
 		FacilityGroupCode int      `json:"facilityGroupCode"`
 		Order             Order    `json:"order"`
@@ -108,7 +112,7 @@ type (
 		Distance          Distance `json:"distance"`
 	}
 
-	Facility struct {
+	HotelFacility struct {
 		Code          int      `json:"facilityCode"`
 		GroupCode     int      `json:"facilityGroupCode"`
 		Order         Order    `json:"order"`
@@ -119,7 +123,7 @@ type (
 		Distance      Distance `json:"distance"`
 	}
 
-	Image struct {
+	HotelImage struct {
 		TypeCode           string `json:"imageTypeCode"`
 		Path               string `json:"path"`
 		Order              Order  `json:"order"`
@@ -129,7 +133,7 @@ type (
 		CharacteristicCode string `json:"characteristicCode"`
 	}
 
-	WildCard struct {
+	HotelWildCard struct {
 		RoomType           string  `json:"roomType"`
 		RoomCode           string  `json:"roomCode"`
 		CharacteristicCode string  `json:"characteristicCode"`
@@ -186,7 +190,7 @@ type (
 		Hotels []Hotel    `json:"hotels"`
 	}
 
-	ListCountriesInput struct {
+	ListInput struct {
 		Fields               []string `url:"fields"`
 		Codes                []string `url:"codes"`
 		Language             string   `url:"language"`
@@ -194,6 +198,10 @@ type (
 		To                   int      `url:"to"`
 		UseSecondaryLanguage bool     `url:"useSecondaryLanguage"`
 		LastUpdateTime       Datetime `url:"lastUpdateTime"`
+	}
+
+	ListCountriesInput struct {
+		ListInput
 	}
 
 	ListCountriesResp struct {
@@ -208,7 +216,7 @@ type (
 	}
 
 	ListDestinationsInput struct {
-		ListCountriesInput
+		ListInput
 	}
 
 	ListDestinationsResponse struct {
@@ -239,6 +247,282 @@ type (
 		Description string `json:"description"`
 		Name        string `json:"name"`
 		ZoneCode    int    `json:"zoneCode"`
+	}
+
+	ListAccommodationsInput struct {
+		ListInput
+	}
+
+	ListAccommodationsResponse struct {
+		Audit          *AuditData `json:"auditData"`
+		Accommodations []Accommodation
+	}
+
+	Accommodation struct {
+		Code            string `json:"code"`
+		TypeDescription string `json:"typeDescription"`
+	}
+
+	ListBoardsInput struct {
+		ListInput
+	}
+
+	ListBoardsResponse struct {
+		Audit  *AuditData `json:"auditData"`
+		Boards []Board    ` json:"boards"`
+	}
+
+	Board struct {
+		Code             string  `json:"code"`
+		Description      Content `json:"description"`
+		MultiLingualCode string  `json:"multiLingualCode"`
+	}
+
+	ListBoardGroupsInput struct {
+		Codes []string `json:"codes"`
+		ListInput
+	}
+
+	BoardGroup struct {
+		Code             string  `json:"code"`
+		Description      Content `json:"description"`
+		MultiLingualCode string  `json:"multiLingualCode"`
+	}
+
+	ListBoardGroupsResponse struct {
+		Audit  *AuditData   `json:"auditData"`
+		Groups []BoardGroup `json:"boards"`
+	}
+
+	ListCategoriesInput struct {
+		ListInput
+	}
+
+	Category struct {
+		Code        string     `json:"code"`
+		SimpleCode  SimpleCode `json:"simpleCode"`
+		Group       string     `json:"group"`
+		Description Content    `json:"description"`
+	}
+
+	ListCategoriesResponse struct {
+		Audit      *AuditData `json:"audit"`
+		Categories []Category `json:"categories"`
+	}
+
+	ListClassificationsInput struct {
+		ListInput
+	}
+
+	Classification struct {
+		Code        string  `json:"code"`
+		Description Content `json:"description"`
+	}
+
+	ListClassificationsResponse struct {
+		Audit           *AuditData       `json:"auditData"`
+		Classifications []Classification `json:"classifications"`
+	}
+
+	ListChainsInput struct {
+		ListInput
+	}
+
+	Chain struct {
+		Code        string  `json:"code"`
+		Description Content `json:"description"`
+	}
+
+	ListChainsResponse struct {
+		Audit  *AuditData `json:"auditData"`
+		Chains []Chain    `json:"chains"`
+	}
+
+	ListCurrenciesInput struct {
+		ListInput
+	}
+
+	Currency struct {
+		Code        string  `json:"code"`
+		Type        string  `json:"currencyType"`
+		Description Content `json:"description"`
+	}
+
+	ListCurrenciesResponse struct {
+		Audit      *AuditData `json:"auditData"`
+		Currencies []Currency `json:"currencies"`
+	}
+
+	ListFacilitiesInput struct {
+		ListInput
+	}
+
+	Facility struct {
+		Code         int     `json:"code"`
+		GroupCode    int     `json:"facilityGroupCode"`
+		TopologyCode int     `json:"topologyCode"`
+		Description  Content `json:"description"`
+	}
+
+	ListFacilitiesResponse struct {
+		Audit      *AuditData `json:"auditData"`
+		Facilities []Facility `json:"facilities"`
+	}
+
+	ListFacilityGroupsInput struct {
+		ListInput
+	}
+
+	FacilityGroup struct {
+		Code        int     `json:"code"`
+		Description Content `json:"description"`
+	}
+
+	ListFacilityGroupsResponse struct {
+		Audit  *AuditData      `json:"auditData"`
+		Groups []FacilityGroup `json:"facilityGroups"`
+	}
+
+	ListFacilityTypologiesInput struct {
+		ListInput
+	}
+
+	FacilityTypology struct {
+		Code                int  `json:"code"`
+		HasNumber           bool `json:"numberFlag"`
+		HasLogic            bool `json:"logicFlag"`
+		HasDistance         bool `json:"distanceFlag"`
+		HasAgeFrom          bool `json:"ageFromFlag"`
+		HasAgeTo            bool `json:"ageToFlag"`
+		HasTimeFrom         bool `json:"timeFromFlag"`
+		HasTimeTo           bool `json:"timeToFlag"`
+		HasIndicatesYesOrNo bool `json:"indYesOrNoFlag"`
+		HasAmount           bool `json:"amountFlag"`
+		HasCurrency         bool `json:"currencyFlag"`
+		HasApplicationType  bool `json:"appTypeFlag"`
+		HasText             bool `json:"textFlag"`
+	}
+
+	ListFacilityTypologiesResponse struct {
+		Audit      *AuditData         `json:"auditData"`
+		Typologies []FacilityTypology `json:"facilityTypologies"`
+	}
+
+	ListImageTypesInput struct {
+		ListInput
+	}
+
+	ImageType struct {
+		Code        string  `json:"code"`
+		Description Content `json:"description"`
+	}
+
+	ListImageTypesResponse struct {
+		Audit *AuditData  `json:"auditData"`
+		Types []ImageType `json:"imageTypes"`
+	}
+
+	ListIssuesInput struct {
+		ListInput
+	}
+
+	Issue struct {
+		Code          string  `json:"code"`
+		Type          string  `json:"type"`
+		Description   Content `json:"description"`
+		Name          Content `json:"name"`
+		IsAlternative bool    `json:"alternative"`
+	}
+
+	ListIssuesResponse struct {
+		Audit  *AuditData `json:"auditData"`
+		Issues []Issue    `json:"issues"`
+	}
+
+	ListLanguagesInput struct {
+		ListInput
+	}
+
+	Language struct {
+		Code        string  `json:"code"`
+		Name        string  `json:"name"`
+		Description Content `json:"description"`
+	}
+
+	ListLanguagesResponse struct {
+		Audit     *AuditData `json:"auditData"`
+		Languages []Language `json:"languages"`
+	}
+
+	ListPromotionsInput struct {
+		ListInput
+	}
+
+	Promotion struct {
+		Code        string  `json:"code"`
+		Name        Content `json:"name"`
+		Description Content `json:"description"`
+	}
+
+	ListPromotionsResponse struct {
+		Audit      *AuditData  `json:"auditData"`
+		Promotions []Promotion `json:"promotions"`
+	}
+
+	ListTerminalsInput struct {
+		ListInput
+	}
+
+	ListRoomsInput struct {
+		Codes []string `json:"codes"`
+		ListInput
+	}
+
+	Room struct {
+		Code                      string  `json:"code"`
+		Type                      string  `json:"type"`
+		TypeDescription           Content `json:"typeDescription"`
+		Characteristic            string  `json:"characteristic"`
+		CharacteristicDescription Content `json:"characteristicDescription"`
+		Description               string  `json:"description"`
+		MinPax                    int     `json:"minPax"`
+		MaxPax                    int     `json:"maxPax"`
+		MinAdults                 int     `json:"minAdults"`
+		MaxAdults                 int     `json:"maxAdults"`
+		MinChildren               int     `json:"minChildren"`
+		MaxChildren               int     `json:"maxChildren"`
+	}
+
+	ListRoomsResponse struct {
+		Audit *AuditData `json:"auditData"`
+		Rooms []Room     `json:"rooms"`
+	}
+
+	Terminal struct {
+		Code        string  `json:"code"`
+		Type        string  `json:"type"`
+		Country     string  `json:"country"`
+		Description Content `json:"description"`
+		Name        Content `json:"name"`
+	}
+
+	ListTerminalsResponse struct {
+		Audit     *AuditData `json:"auditData"`
+		Terminals []Terminal `json:"terminals"`
+	}
+
+	ListSegmentsInput struct {
+		ListInput
+	}
+
+	Segment struct {
+		Code        int     `json:"code"`
+		Description Content `json:"description"`
+	}
+
+	ListSegmentsResponse struct {
+		Audit    *AuditData `json:"auditData"`
+		Segments []Segment  `json:"segments"`
 	}
 )
 
@@ -276,6 +560,20 @@ const (
 
 func (ih IncludeHotels) String() string {
 	return string(ih)
+}
+
+type SimpleCode int
+
+const (
+	SimpleCode1Star SimpleCode = iota + 1
+	SimpleCode2Stars
+	SimpleCode3Stars
+	SimpleCode4Stars
+	SimpleCode5Stars
+)
+
+func (sc SimpleCode) Int() int {
+	return int(sc)
 }
 
 const minFromParam = 1
@@ -345,56 +643,6 @@ func (inp GetHotelDetailsInput) Encode(v url.Values) error {
 	return nil
 }
 
-func (inp *ListCountriesInput) Encode(v url.Values) error {
-	for _, field := range inp.Fields {
-		v.Add("fields", field)
-	}
-	for _, code := range inp.Codes {
-		v.Add("codes", code)
-	}
-	if inp.Language != "" {
-		v.Set("language", inp.Language)
-	}
-	if inp.From != 0 {
-		v.Set("from", strconv.Itoa(inp.From))
-	}
-	if inp.To != 0 {
-		v.Set("to", strconv.Itoa(inp.To))
-	}
-	if inp.UseSecondaryLanguage {
-		v.Set("userSecondaryLanguage", "1")
-	}
-	if !inp.LastUpdateTime.IsZero() {
-		v.Set("lastUpdateTime", inp.LastUpdateTime.String())
-	}
-	return nil
-}
-
-func (inp *ListDestinationsInput) Encode(v url.Values) error {
-	for _, field := range inp.Fields {
-		v.Add("fields", field)
-	}
-	for _, code := range inp.Codes {
-		v.Add("codes", code)
-	}
-	if inp.Language != "" {
-		v.Set("language", inp.Language)
-	}
-	if inp.From != 0 {
-		v.Set("from", strconv.Itoa(inp.From))
-	}
-	if inp.To != 0 {
-		v.Set("to", strconv.Itoa(inp.To))
-	}
-	if inp.UseSecondaryLanguage {
-		v.Set("userSecondaryLanguage", "1")
-	}
-	if !inp.LastUpdateTime.IsZero() {
-		v.Set("lastUpdateTime", inp.LastUpdateTime.String())
-	}
-	return nil
-}
-
 // Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/hotelsUsingGET
 func (api *API) ListHotels(ctx context.Context, inp *ListHotelsInput) (*ListHotelsResponse, error) {
 	if err := inp.Validate(); err != nil {
@@ -405,8 +653,6 @@ func (api *API) ListHotels(ctx context.Context, inp *ListHotelsInput) (*ListHote
 		Get("/hotel-content-api/1.0/hotels", clientx.WithRequestHeaders(api.buildHeaders())).
 		WithEncodableQueryParams(inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
-			b, err := io.ReadAll(resp.Body)
-			fmt.Println(string(b), err)
 			return resp.StatusCode > 399, decodeError(resp)
 		}).
 		DoWithDecode(ctx)
@@ -427,10 +673,8 @@ func (api *API) GetHotelDetails(ctx context.Context, codes []int, inp *GetHotelD
 func (api *API) ListCountries(ctx context.Context, inp *ListCountriesInput) (*ListCountriesResp, error) {
 	return clientx.NewRequestBuilder[ListCountriesInput, ListCountriesResp](api.API).
 		Get("/hotel-content-api/1.0/locations/countries", clientx.WithRequestHeaders(api.buildHeaders())).
-		WithEncodableQueryParams(inp).
+		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
-			f, err := io.ReadAll(resp.Body)
-			fmt.Println(string(f), err)
 			return resp.StatusCode > 399, decodeError(resp)
 		}).
 		DoWithDecode(ctx)
@@ -440,7 +684,193 @@ func (api *API) ListCountries(ctx context.Context, inp *ListCountriesInput) (*Li
 func (api *API) ListDestinations(ctx context.Context, inp *ListDestinationsInput) (*ListDestinationsResponse, error) {
 	return clientx.NewRequestBuilder[ListDestinationsInput, ListDestinationsResponse](api.API).
 		Get("/hotel-content-api/1.0/locations/destinations", clientx.WithRequestHeaders(api.buildHeaders())).
-		WithEncodableQueryParams(inp).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+func (api *API) ListAccommodations(ctx context.Context, inp *ListAccommodationsInput) (*ListAccommodationsResponse, error) {
+	return clientx.NewRequestBuilder[ListAccommodationsInput, ListAccommodationsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/accommodations", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/boardsUsingGET
+func (api *API) ListBoards(ctx context.Context, inp *ListBoardsInput) (*ListBoardsResponse, error) {
+	return clientx.NewRequestBuilder[ListBoardsInput, ListBoardsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/boards", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/boardGroupsUsingGET
+func (api *API) ListBoardGroups(ctx context.Context, inp *ListBoardGroupsInput) (*ListBoardGroupsResponse, error) {
+	return clientx.NewRequestBuilder[ListBoardGroupsInput, ListBoardGroupsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/boardgroups", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/categoriesUsingGET
+func (api *API) ListCategories(ctx context.Context, inp *ListCategoriesInput) (*ListCategoriesResponse, error) {
+	return clientx.NewRequestBuilder[ListCategoriesInput, ListCategoriesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/categories", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/chainsUsingGET
+func (api *API) ListChains(ctx context.Context, inp *ListChainsInput) (*ListChainsResponse, error) {
+	return clientx.NewRequestBuilder[ListChainsInput, ListChainsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/chains", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/classificationsUsingGET
+func (api *API) ListClassifications(ctx context.Context, inp *ListClassificationsInput) (*ListClassificationsResponse, error) {
+	return clientx.NewRequestBuilder[ListClassificationsInput, ListClassificationsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/classifications", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/currenciesUsingGET
+func (api *API) ListCurrencies(ctx context.Context, inp *ListCurrenciesInput) (*ListCurrenciesResponse, error) {
+	return clientx.NewRequestBuilder[ListCurrenciesInput, ListCurrenciesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/currencies", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/facilitiesUsingGET
+func (api *API) ListFacilities(ctx context.Context, inp *ListFacilitiesInput) (*ListFacilitiesResponse, error) {
+	return clientx.NewRequestBuilder[ListFacilitiesInput, ListFacilitiesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/facilities", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/facilitygroupsUsingGET
+func (api *API) ListFacilityGroups(ctx context.Context, inp *ListFacilityGroupsInput) (*ListFacilityGroupsResponse, error) {
+	return clientx.NewRequestBuilder[ListFacilityGroupsInput, ListFacilityGroupsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/facilitygroups", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/facilitytypologiesUsingGET
+func (api *API) ListFacilityTypologies(ctx context.Context, inp *ListFacilityTypologiesInput) (*ListFacilityTypologiesResponse, error) {
+	return clientx.NewRequestBuilder[ListFacilityTypologiesInput, ListFacilityTypologiesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/facilitytypologies", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/imagetypesUsingGET
+func (api *API) ListImageTypes(ctx context.Context, inp *ListImageTypesInput) (*ListImageTypesResponse, error) {
+	return clientx.NewRequestBuilder[ListImageTypesInput, ListImageTypesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/imagetypes", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/issuesUsingGET
+func (api *API) ListIssues(ctx context.Context, inp *ListIssuesInput) (*ListIssuesResponse, error) {
+	return clientx.NewRequestBuilder[ListIssuesInput, ListIssuesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/issues", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/languagesUsingGET
+func (api *API) ListLanguages(ctx context.Context, inp *ListLanguagesInput) (*ListLanguagesResponse, error) {
+	return clientx.NewRequestBuilder[ListLanguagesInput, ListLanguagesResponse](api.API).
+		Get("/hotel-content-api/1.0/types/languages", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/promotionsUsingGET
+func (api *API) ListPromotions(ctx context.Context, inp *ListPromotionsInput) (*ListPromotionsResponse, error) {
+	return clientx.NewRequestBuilder[ListPromotionsInput, ListPromotionsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/promotions", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/roomsUsingGET
+func (api *API) ListRooms(ctx context.Context, inp *ListRoomsInput) (*ListRoomsResponse, error) {
+	return clientx.NewRequestBuilder[ListRoomsInput, ListRoomsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/rooms", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/segmentsUsingGET
+func (api *API) ListSegments(ctx context.Context, inp *ListSegmentsInput) (*ListSegmentsResponse, error) {
+	return clientx.NewRequestBuilder[ListSegmentsInput, ListSegmentsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/segments", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
+		WithErrorDecode(func(resp *http.Response) (bool, error) {
+			return resp.StatusCode > 399, decodeError(resp)
+		}).
+		DoWithDecode(ctx)
+}
+
+// Ref - https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#operation/terminalsUsingGET
+func (api *API) ListTerminals(ctx context.Context, inp *ListTerminalsInput) (*ListTerminalsResponse, error) {
+	return clientx.NewRequestBuilder[ListTerminalsInput, ListTerminalsResponse](api.API).
+		Get("/hotel-content-api/1.0/types/terminals", clientx.WithRequestHeaders(api.buildHeaders())).
+		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
 			return resp.StatusCode > 399, decodeError(resp)
 		}).

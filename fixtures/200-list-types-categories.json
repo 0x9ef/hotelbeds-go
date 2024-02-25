@@ -1,0 +1,35 @@
+{
+    "from": 2,
+    "to": 3,
+    "total": 64,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 10:24:32.005",
+        "requestHost": "10.214.42.238",
+        "serverId": "hotel-content-api-5546f9856f-rn8ls",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-rn8ls]",
+        "release": ""
+    },
+    "categories": [
+        {
+            "code": "1EST",
+            "simpleCode": 1,
+            "accommodationType": "",
+            "group": "GRUPO1",
+            "description": {
+                "languageCode": "ENG",
+                "content": "1 STAR"
+            }
+        },
+        {
+            "code": "1LL",
+            "simpleCode": 1,
+            "accommodationType": "",
+            "group": "GRUPO7",
+            "description": {
+                "languageCode": "ENG",
+                "content": "1 KEY"
+            }
+        }
+    ]
+}

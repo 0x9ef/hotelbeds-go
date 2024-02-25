@@ -1,0 +1,31 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 32,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 11:22:34.306",
+        "requestHost": "10.214.8.25",
+        "serverId": "hotel-content-api-5546f9856f-dnnqn",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-dnnqn]",
+        "release": ""
+    },
+    "boards": [
+        {
+            "code": "AB",
+            "description": {
+                "languageCode": "ENG",
+                "content": "AMERICAN BREAKFAST"
+            },
+            "multiLingualCode": "AB"
+        },
+        {
+            "code": "AI",
+            "description": {
+                "languageCode": "ENG",
+                "content": "ALL INCLUSIVE"
+            },
+            "multiLingualCode": "AI"
+        }
+    ]
+}

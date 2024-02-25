@@ -1,0 +1,33 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 151,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 08:50:09.409",
+        "requestHost": "10.214.34.248",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "promotions": [
+        {
+            "code": "013",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Board upgrade applied"
+            },
+            "name": {
+                "languageCode": "ENG",
+                "content": "Board upgrade applied"
+            }
+        },
+        {
+            "code": "014",
+            "name": {
+                "languageCode": "ENG",
+                "content": "Transfer included"
+            }
+        }
+    ]
+}

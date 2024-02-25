@@ -1,0 +1,29 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 10,
+    "auditData": {
+        "processTime": "0",
+        "timestamp": "2024-02-25 10:20:26.950",
+        "requestHost": "10.214.38.199",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "imageTypes": [
+        {
+            "code": "BAR",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Bar"
+            }
+        },
+        {
+            "code": "COM",
+            "description": {
+                "languageCode": "ENG",
+                "content": "Lobby"
+            }
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "from": 1,
+    "to": 2,
+    "total": 24,
+    "auditData": {
+        "processTime": "20",
+        "timestamp": "2024-02-24 20:39:12.545",
+        "requestHost": "10.214.34.99",
+        "serverId": "hotel-content-api-5546f9856f-9lr6s",
+        "environment": "[live, awseucentral1, k8s, gcpeuropewest1, secret, hotel-content-api-5546f9856f-9lr6s]",
+        "release": ""
+    },
+    "accommodations": [
+        {
+            "code": "G",
+            "typeMultiDescription": {
+                "languageCode": "ENG",
+                "content": "Guest house"
+            },
+            "typeDescription": "Guest house"
+        },
+        {
+            "code": "Q",
+            "typeMultiDescription": {
+                "languageCode": "ENG",
+                "content": "Boutique"
+            },
+            "typeDescription": "Boutique"
+        }
+    ]
+}
