@@ -105,7 +105,7 @@ func TestConfirmBooking(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, resp.Booking.Hotel.Code, 6619)
+	assert.Equal(t, 712986, resp.Booking.Hotel.Code)
 	assert.Equal(t, "INTEGRATIONAGENCY", resp.Booking.ClientReference)
 	assert.Equal(t, BookingStatus("CONFIRMED"), resp.Booking.Status)
 	assert.Equal(t, 1, len(resp.Booking.Hotel.Rooms))

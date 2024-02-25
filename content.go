@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -724,8 +723,6 @@ func (api *API) ListAccommodations(ctx context.Context, inp *ListAccommodationsI
 		Get("/hotel-content-api/1.0/types/accommodations", clientx.WithRequestHeaders(api.buildHeaders())).
 		WithQueryParams("url", *inp).
 		WithErrorDecode(func(resp *http.Response) (bool, error) {
-			b, err := io.ReadAll(resp.Body)
-			fmt.Println(string(b), err)
 			return resp.StatusCode > 399, decodeError(resp)
 		}).
 		DoWithDecode(ctx)
