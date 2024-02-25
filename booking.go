@@ -459,6 +459,10 @@ const (
 	BookingStatusCancelled BookingStatus = "CANCELLED"
 )
 
+func (s BookingStatus) String() string {
+	return string(s)
+}
+
 type Mode string
 
 const (
@@ -466,6 +470,10 @@ const (
 	ModeCancellation Mode = "CANCELLATION"
 	ModeSimulation   Mode = "SIMULATION"
 )
+
+func (m Mode) String() string {
+	return string(m)
+}
 
 func (inp *ListAvailableHotelsInput) Validate() error {
 	if err := inp.Stay.Validate(); err != nil {
@@ -520,6 +528,10 @@ const (
 	PaxTypeAdult    PaxType = "AD"
 	PaxTypeChildren PaxType = "CH"
 )
+
+func (p PaxType) String() string {
+	return string(p)
+}
 
 type Keyword struct {
 	Keywords    []int `json:"keywords,omitempty"`
@@ -634,6 +646,10 @@ const (
 	PaymentTypeAtWeb   PaymentType = "AT_WEB"
 	PaymentTypeAtHotel PaymentType = "AT_HOTEL"
 )
+
+func (p PaymentType) String() string {
+	return string(p)
+}
 
 // Ref - https://developer.hotelbeds.com/documentation/hotels/booking-api/api-reference/#operation/availability
 func (api *API) ListAvailableHotels(ctx context.Context, inp *ListAvailableHotelsInput) (*ListAvailableHotelsResponse, error) {

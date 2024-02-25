@@ -63,10 +63,6 @@ func (rh *Environments) UnmarshalJSON(data []byte) error {
 
 type CommaSliceString []string
 
-func (s CommaSliceString) MarshalJSON() ([]byte, error) {
-	return []byte("\"" + strings.Join(s, ",") + "\""), nil
-}
-
 func (s *CommaSliceString) UnmarshalJSON(data []byte) error {
 	if len(data) == 0 {
 		return nil
@@ -76,15 +72,6 @@ func (s *CommaSliceString) UnmarshalJSON(data []byte) error {
 }
 
 type CommaSliceInt []int
-
-func (s CommaSliceInt) MarshalJSON() ([]byte, error) {
-	var sb strings.Builder
-	for _, elem := range s {
-		sb.WriteString(strconv.Itoa(elem) + ",")
-	}
-	str := sb.String()[:sb.Len()-1]
-	return []byte("\"" + str + "\""), nil
-}
 
 func (s *CommaSliceInt) UnmarshalJSON(data []byte) error {
 	if len(data) == 0 {
