@@ -1,4 +1,5 @@
 # HotelBeds client written in Go
+[![Go Tests](https://github.com/0x9ef/hotelbeds-go/actions/workflows/ci.yaml/badge.svg)](https://github.com/0x9ef/hotelbeds-go/actions/workflows/ci.yaml)
 
 Go client written for [HotelBeds](https://hotelbeds.com/). It's unofficial client, currently supported only by my [0x9ef](https://github.com/0x9ef). I will tack version changes and changelogs as soon as possible.
 
